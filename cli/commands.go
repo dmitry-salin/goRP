@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/avarabyeu/goRP/gorp"
+	"github.com/dmitry-salin/goRP/gorp"
 	"github.com/manifoldco/promptui"
 	"gopkg.in/urfave/cli.v1"
 )

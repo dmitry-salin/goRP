@@ -1,4 +1,4 @@
-module github.com/avarabyeu/goRP
+module github.com/dmitry-salin/goRP
 
 go 1.13
 

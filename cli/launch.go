@@ -3,7 +3,7 @@ package cli
 import (
 	"errors"
 	"fmt"
-	"github.com/avarabyeu/goRP/gorp"
+	"github.com/dmitry-salin/goRP/gorp"
 	"gopkg.in/urfave/cli.v1"
 	"strings"
 )

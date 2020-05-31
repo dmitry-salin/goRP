@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/avarabyeu/goRP/agent/handlers"
 	"github.com/caarlos0/env"
+	"github.com/dmitry-salin/goRP/agent/handlers"
 	log "github.com/sirupsen/logrus"
 	"go.uber.org/fx"
 )

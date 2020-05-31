@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	rp "github.com/avarabyeu/goRP/cli"
+	rp "github.com/dmitry-salin/goRP/cli"
 	"gopkg.in/urfave/cli.v1"
 	"log"
 	"os"

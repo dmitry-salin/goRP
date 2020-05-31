@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/avarabyeu/goRP/agent/store"
-	"github.com/avarabyeu/goRP/gorp"
+	"github.com/dmitry-salin/goRP/agent/store"
+	"github.com/dmitry-salin/goRP/gorp"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
