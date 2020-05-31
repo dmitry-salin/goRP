@@ -37,7 +37,7 @@ type (
 		Number              int64       `json:"number"`
 		Description         string      `json:"description,omitempty"`
 		StartTime           Timestamp   `json:"start_time,omitempty"`
-		EndTime             Timestamp   `json:"end_time,omitempty"`
+		EndTime             Timestamp   `json:"endTime,omitempty"`
 		Status              string      `json:"status,omitempty"`
 		Tags                []string    `json:"tags,omitempty"`
 		Mode                LaunchMode  `json:"mode,omitempty"`
@@ -110,7 +110,7 @@ type (
 	MergeLaunchesRQ struct {
 		Description             string     `json:"description,omitempty"`
 		StartTime               *Timestamp `json:"start_time,omitempty"`
-		EndTime                 *Timestamp `json:"end_time,omitempty"`
+		EndTime                 *Timestamp `json:"endTime,omitempty"`
 		ExtendSuitesDescription bool       `json:"extendSuitesDescription,omitempty"`
 		Launches                []string   `json:"launches"`
 		MergeType               MergeType  `json:"merge_type,omitempty"`
@@ -159,7 +159,7 @@ type (
 
 	//FinishLaunchRQ payload representation
 	FinishLaunchRQ struct {
-		EndTime     Timestamp    `json:"end_time,omitempty"`
+		EndTime     Timestamp    `json:"endTime,omitempty"`
 		Status      string       `json:"status,omitempty"`
 		Description string       `json:"description,omitempty"`
 		Attributes  []*Attribute `json:"attributes,omitempty"`
@@ -187,7 +187,7 @@ type (
 
 	//FinishTestRQ payload representation
 	FinishTestRQ struct {
-		EndTime     Timestamp    `json:"end_time,omitempty"`
+		EndTime     Timestamp    `json:"endTime,omitempty"`
 		LaunchUUID  string       `json:"launchUuid,omitempty"`
 		Status      string       `json:"status,omitempty"`
 		Description string       `json:"description,omitempty"`
