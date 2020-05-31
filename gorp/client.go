@@ -60,7 +60,7 @@ func (c *Client) startLaunch(body interface{}) (*EntryCreatedRS, error) {
 }
 
 //FinishLaunch finishes launch in RP
-func (c *Client) FinishLaunch(id string, launch *FinishExecutionRQ) (*FinishLaunchRS, error) {
+func (c *Client) FinishLaunch(id string, launch *FinishLaunchRQ) (*FinishLaunchRS, error) {
 	return c.finishLaunch(id, launch)
 }
 
@@ -91,7 +91,7 @@ func (c *Client) StopLaunch(id string) (*MsgRS, error) {
 			"project":  c.project,
 			"launchId": id,
 		}).
-		SetBody(&FinishExecutionRQ{
+		SetBody(&FinishLaunchRQ{
 			EndTime: Timestamp{Time: time.Now()},
 			Status:  StatusStopped,
 		}).
@@ -121,6 +121,16 @@ func (c *Client) startTest(body interface{}) (*EntryCreatedRS, error) {
 	return &rs, err
 }
 
+//StartChildTest starts new test in RP
+func (c *Client) StartChildTest(parent string, item *StartTestRQ) (*EntryCreatedRS, error) {
+	return c.startChildTest(parent, item)
+}
+
+//StartChildTestRaw starts new test in RP accepting request body as array of bytes
+func (c *Client) StartChildTestRaw(parent string, body *bytes.Buffer) (*EntryCreatedRS, error) {
+	return c.startChildTest(parent, body)
+}
+
 //startChildTest starts new test in RP
 func (c *Client) startChildTest(parent string, body interface{}) (*EntryCreatedRS, error) {
 	var rs EntryCreatedRS
@@ -133,16 +143,6 @@ func (c *Client) startChildTest(parent string, body interface{}) (*EntryCreatedR
 		SetResult(&rs).
 		Post("/api/v1/{project}/item/{itemId}")
 	return &rs, err
-}
-
-//StartChildTest starts new test in RP
-func (c *Client) StartChildTest(parent string, item *StartTestRQ) (*EntryCreatedRS, error) {
-	return c.startChildTest(parent, item)
-}
-
-//StartChildTestRaw starts new test in RP accepting request body as array of bytes
-func (c *Client) StartChildTestRaw(parent string, body *bytes.Buffer) (*EntryCreatedRS, error) {
-	return c.startChildTest(parent, body)
 }
 
 //FinishTest finishes test in RP

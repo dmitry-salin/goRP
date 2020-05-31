@@ -24,6 +24,12 @@ type (
 		} `json:"page,omitempty"`
 	}
 
+	//Timestamp is a wrapper around Time to support
+	//Epoch milliseconds
+	Timestamp struct {
+		time.Time
+	}
+
 	//LaunchResource - GET Launch response model
 	LaunchResource struct {
 		ID                  string      `json:"id"`
@@ -113,13 +119,9 @@ type (
 		Name                    string     `json:"name,omitempty"`
 	}
 
-	//StartRQ payload representation
-	StartRQ struct {
-		UUID        *uuid.UUID   `json:"uuid,omitempty"`
-		Name        string       `json:"name,omitempty"`
-		Description string       `json:"description,omitempty"`
-		Attributes  []*Attribute `json:"attributes,omitempty"`
-		StartTime   Timestamp    `json:"start_time,omitempty"`
+	//MsgRS successful operation response payload
+	MsgRS struct {
+		Msg string `json:"msg,omitempty"`
 	}
 
 	Attribute struct {
@@ -127,9 +129,19 @@ type (
 		Value  string `json:"value,omitempty"`
 		System bool   `json:"system,omitempty"`
 	}
+
 	Parameter struct {
 		Key   string `json:"key,omitempty"`
 		Value string `json:"value,omitempty"`
+	}
+
+	//StartRQ payload representation
+	StartRQ struct {
+		Name        string       `json:"name,omitempty"`
+		StartTime   Timestamp    `json:"startTime,omitempty"`
+		UUID        *uuid.UUID   `json:"uuid,omitempty"`
+		Description string       `json:"description,omitempty"`
+		Attributes  []*Attribute `json:"attributes,omitempty"`
 	}
 
 	//StartLaunchRQ payload representation
@@ -140,54 +152,17 @@ type (
 		RerunOf *uuid.UUID `json:"rerunOf,omitempty"`
 	}
 
-	//FinishTestRQ payload representation
-	FinishTestRQ struct {
-		FinishExecutionRQ
-		Retry bool `json:"retry,omitempty"`
-	}
-
-	//SaveLogRQ payload representation. Without attaches.
-	SaveLogRQ struct {
-		ItemID  string    `json:"item_id,omitempty"`
-		LogTime Timestamp `json:"time,omitempty"`
-		Message string    `json:"message,omitempty"`
-		Level   string    `json:"level,omitempty"`
-	}
-
-	//StartTestRQ payload representation
-	StartTestRQ struct {
-		StartRQ
-		CodeRef    string       `json:"codeRef,omitempty"`
-		Parameters []*Parameter `json:"parameters,omitempty"`
-		UniqueID   string       `json:"uniqueId,omitempty"`
-		TestCaseID string       `json:"testCaseId,omitempty"`
-		LaunchID   string       `json:"launchUuid,omitempty"`
-		Type       string       `json:"type,omitempty"`
-		Retry      bool         `json:"retry,omitempty"`
-		HasStats   string       `json:"hasStats,omitempty"`
-	}
-
-	//FinishExecutionRQ payload representation
-	FinishExecutionRQ struct {
-		EndTime     Timestamp `json:"end_time,omitempty"`
-		Status      string    `json:"status,omitempty"`
-		Description string    `json:"description,omitempty"`
-		Tags        []string  `json:"tags,omitempty"`
-	}
-
 	//EntryCreatedRS payload
 	EntryCreatedRS struct {
 		ID string `json:"id,omitempty"`
 	}
 
-	//StartLaunchRS payload
-	StartLaunchRS struct {
-		ID string `json:"id,omitempty"`
-	}
-
-	//MsgRS successful operation response payload
-	MsgRS struct {
-		Msg string `json:"msg,omitempty"`
+	//FinishLaunchRQ payload representation
+	FinishLaunchRQ struct {
+		EndTime     Timestamp    `json:"end_time,omitempty"`
+		Status      string       `json:"status,omitempty"`
+		Description string       `json:"description,omitempty"`
+		Attributes  []*Attribute `json:"attributes,omitempty"`
 	}
 
 	//FinishLaunchRS is finish execution payload
@@ -196,10 +171,36 @@ type (
 		Number int64  `json:"number,omitempty"`
 		Link   string `json:"link,omitempty"`
 	}
-	//Timestamp is a wrapper around Time to support
-	//Epoch milliseconds
-	Timestamp struct {
-		time.Time
+
+	//StartTestRQ payload representation
+	StartTestRQ struct {
+		StartRQ
+		Type       string       `json:"type,omitempty"`
+		LaunchUUID string       `json:"launchUuid,omitempty"`
+		CodeRef    string       `json:"codeRef,omitempty"`
+		Parameters []*Parameter `json:"parameters,omitempty"`
+		UniqueID   string       `json:"uniqueId,omitempty"`
+		TestCaseID string       `json:"testCaseId,omitempty"`
+		Retry      bool         `json:"retry,omitempty"`
+		HasStats   bool         `json:"hasStats,omitempty"`
+	}
+
+	//FinishTestRQ payload representation
+	FinishTestRQ struct {
+		EndTime     Timestamp    `json:"end_time,omitempty"`
+		LaunchUUID  string       `json:"launchUuid,omitempty"`
+		Status      string       `json:"status,omitempty"`
+		Description string       `json:"description,omitempty"`
+		Attributes  []*Attribute `json:"attributes,omitempty"`
+		Retry       bool         `json:"retry,omitempty"`
+	}
+
+	//SaveLogRQ payload representation. Without attaches.
+	SaveLogRQ struct {
+		ItemID  string    `json:"item_id,omitempty"`
+		LogTime Timestamp `json:"time,omitempty"`
+		Message string    `json:"message,omitempty"`
+		Level   string    `json:"level,omitempty"`
 	}
 )
 
