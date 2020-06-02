@@ -182,7 +182,7 @@ type (
 		UniqueID   string       `json:"uniqueId,omitempty"`
 		TestCaseID string       `json:"testCaseId,omitempty"`
 		Retry      bool         `json:"retry,omitempty"`
-		HasStats   bool         `json:"hasStats,omitempty"`
+		HasStats   string       `json:"hasStats,omitempty"`
 	}
 
 	//FinishTestRQ payload representation
