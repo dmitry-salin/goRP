@@ -2,6 +2,7 @@ package gorp
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"mime/multipart"
@@ -22,7 +23,8 @@ type Client struct {
 //project - name of the project
 //uuid - User Token (see user profile page)
 //rootCert - Path to custom Root Certificate
-func NewClient(host, project, uuid string, rootCert string) *Client {
+//insecure - Accept/Ignore all server SSL certificates
+func NewClient(host, project, uuid string, rootCert string, insecure bool) *Client {
 	http := resty.New().
 		//SetDebug(true).
 		SetHostURL(host).
@@ -35,6 +37,9 @@ func NewClient(host, project, uuid string, rootCert string) *Client {
 		})
 	if len(rootCert) > 0 {
 		http.SetRootCertificate(rootCert)
+	} else if insecure {
+		conf := tls.Config{InsecureSkipVerify: true}
+		http.SetTLSClientConfig(&conf)
 	}
 	return &Client{
 		project: project,
