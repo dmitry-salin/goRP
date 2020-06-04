@@ -21,7 +21,8 @@ type Client struct {
 //host - server hostname
 //project - name of the project
 //uuid - User Token (see user profile page)
-func NewClient(host, project, uuid string) *Client {
+//rootCert - Path to custom Root Certificate
+func NewClient(host, project, uuid string, rootCert string) *Client {
 	http := resty.New().
 		//SetDebug(true).
 		SetHostURL(host).
@@ -32,6 +33,9 @@ func NewClient(host, project, uuid string) *Client {
 			}
 			return nil
 		})
+	if len(rootCert) > 0 {
+		http.SetRootCertificate(rootCert)
+	}
 	return &Client{
 		project: project,
 		http:    http,
