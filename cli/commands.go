@@ -131,5 +131,5 @@ func buildClient(ctx *cli.Context) (*gorp.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return gorp.NewClient(cfg.Host, cfg.Project, cfg.UUID), nil
+	return gorp.NewClient(cfg.Host, cfg.Project, cfg.UUID, "", false), nil
 }

@@ -10,7 +10,7 @@ import (
 
 var _ = Describe("ReportPortal Client", func() {
 	It("Creates correctly", func() {
-		client := NewClient("http://host.com", "prj", "uuid")
+		client := NewClient("http://host.com", "prj", "uuid", "", false)
 
 		Expect(client.project).To(Equal("prj"))
 		Expect(client.http.HostURL).To(Equal("http://host.com"))
@@ -24,7 +24,7 @@ var _ = Describe("ReportPortal Client", func() {
 		}))
 		defer server.Close()
 
-		client := NewClient(server.URL, "prj", "uuid")
+		client := NewClient(server.URL, "prj", "uuid", "", false)
 
 		_, err := client.GetLaunches()
 		Expect(err).Should(HaveOccurred())
