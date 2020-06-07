@@ -195,13 +195,19 @@ type (
 		Retry       bool         `json:"retry,omitempty"`
 	}
 
-	//SaveLogRQ payload representation. Without attaches.
+	File struct {
+		Name string `json:"name,omitempty"`
+	}
+
+	//SaveLogRQ payload representation
 	SaveLogRQ struct {
-		LaunchUUID string    `json:"launchUuid,omitempty"`
-		LogTime    Timestamp `json:"time,omitempty"`
-		ItemUUID   string    `json:"itemUuid,omitempty"`
-		Message    string    `json:"message,omitempty"`
-		Level      string    `json:"level,omitempty"`
+		LaunchUUID string     `json:"launchUuid,omitempty"`
+		ItemUUID   string     `json:"itemUuid,omitempty"`
+		UUID       *uuid.UUID `json:"uuid,omitempty"`
+		LogTime    Timestamp  `json:"time,omitempty"`
+		Level      string     `json:"level,omitempty"`
+		Message    string     `json:"message,omitempty"`
+		File       File       `json:"file,omitempty"`
 	}
 )
 
