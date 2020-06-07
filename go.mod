@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/go-chi/chi v4.0.2+incompatible
+	github.com/go-resty/resty/v2 v2.3.0
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/manifoldco/promptui v0.6.0
 	github.com/onsi/ginkgo v1.11.0
