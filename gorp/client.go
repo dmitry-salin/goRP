@@ -5,8 +5,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"mime/multipart"
-	"os"
 	"time"
 
 	"github.com/go-resty/resty/v2"
@@ -191,26 +189,23 @@ func (c *Client) SaveLog(log *SaveLogRQ) (*EntryCreatedRS, error) {
 	return &rs, err
 }
 
-//SaveLog attaches log in RP
-func (c *Client) SaveLogMultipart(log *SaveLogRQ, files map[string][]os.File) (*EntryCreatedRS, error) {
-	body := &bytes.Buffer{}
+//SaveLogMultipart attaches log in RP
+func (c *Client) SaveLogMultipart(log []*SaveLogRQ, files map[string]string) ([]*EntryCreatedRS, error) {
+	var rs []*EntryCreatedRS
+	jsonPart, err := json.Marshal(log)
+	if err != nil {
+		return rs, err
+	}
 
-	// JSON PART
-	mWriter := multipart.NewWriter(body)
-	jsonPart, _ := mWriter.CreatePart(map[string][]string{"Content-Type": {"application/json"}})
-	err := json.NewEncoder(jsonPart).Encode(log)
-
-	// BINARY PART
-
-	var rs EntryCreatedRS
-	rq := c.http.R().
+	_, err = c.http.R().
 		SetPathParams(map[string]string{
 			"project": c.project,
-		})
-	_, err = rq.
-		SetResult(&rs).
+		}).
+		SetMultipartField("json_request_part", "", "application/json", bytes.NewBuffer(jsonPart)).
+		SetFiles(files).
+		SetResult(rs).
 		Post("/api/v1/{project}/log")
-	return &rs, err
+	return rs, err
 }
 
 //GetLaunches retrieves latest launches
