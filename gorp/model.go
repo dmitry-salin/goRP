@@ -209,6 +209,11 @@ type (
 		Message    string     `json:"message,omitempty"`
 		File       File       `json:"file,omitempty"`
 	}
+
+	//SaveLogMultipartRS payload representation
+	SaveLogMultipartRS struct {
+		Responses []*EntryCreatedRS `json:"responses,omitempty"`
+	}
 )
 
 //UnmarshalJSON converts Epoch milliseconds (timestamp) to appropriate object

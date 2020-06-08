@@ -190,11 +190,11 @@ func (c *Client) SaveLog(log *SaveLogRQ) (*EntryCreatedRS, error) {
 }
 
 //SaveLogMultipart attaches log in RP
-func (c *Client) SaveLogMultipart(log []*SaveLogRQ, files map[string]string) ([]*EntryCreatedRS, error) {
-	var rs []*EntryCreatedRS
+func (c *Client) SaveLogMultipart(log []*SaveLogRQ, files map[string]string) (*SaveLogMultipartRS, error) {
+	var rs SaveLogMultipartRS
 	jsonPart, err := json.Marshal(log)
 	if err != nil {
-		return rs, err
+		return &rs, err
 	}
 
 	_, err = c.http.R().
@@ -203,9 +203,9 @@ func (c *Client) SaveLogMultipart(log []*SaveLogRQ, files map[string]string) ([]
 		}).
 		SetMultipartField("json_request_part", "", "application/json", bytes.NewBuffer(jsonPart)).
 		SetFiles(files).
-		SetResult(rs).
+		SetResult(&rs).
 		Post("/api/v1/{project}/log")
-	return rs, err
+	return &rs, err
 }
 
 //GetLaunches retrieves latest launches
